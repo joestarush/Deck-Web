@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Index — AI Flashcards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- LOCK SCREEN -->
+  <section id="lock-screen" class="screen">
+    <div class="card lock-card">
+      <div class="punch-row"><span class="punch"></span><span class="punch"></span><span class="punch"></span></div>
+      <div class="rule"></div>
+      <p class="eyebrow">Index</p>
+      <h1 class="lock-title">Enter PIN</h1>
+      <div id="pin-dots" class="pin-dots"></div>
+      <div class="keypad" id="keypad">
+        <button data-key="1">1</button>
+        <button data-key="2">2</button>
+        <button data-key="3">3</button>
+        <button data-key="4">4</button>
+        <button data-key="5">5</button>
+        <button data-key="6">6</button>
+        <button data-key="7">7</button>
+        <button data-key="8">8</button>
+        <button data-key="9">9</button>
+        <button data-key="clear" class="keypad-alt">Clear</button>
+        <button data-key="0">0</button>
+        <button data-key="back" class="keypad-alt">⌫</button>
+      </div>
+      <button data-key="enter" class="btn-primary unlock-btn" id="unlock-btn">Unlock</button>
+      <p id="lock-error" class="lock-error"></p>
+    </div>
+  </section>
+
+  <!-- MAIN APP -->
+  <section id="app-screen" class="screen hidden">
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Index</p>
+        <h1 class="app-title">AI Flashcards</h1>
+      </div>
+      <div class="deck-controls">
+        <select id="deck-select"><option value="">— New deck —</option></select>
+        <button id="delete-deck-btn" class="btn-ghost" title="Delete this deck">Delete deck</button>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <section class="panel generator-panel">
+        <p class="panel-label">01 · Paste your material</p>
+        <textarea id="source-text" placeholder="Paste notes, an article, a chapter — whatever you want turned into flashcards."></textarea>
+        <div class="generator-row">
+          <label class="count-label">Cards
+            <input type="number" id="card-count" min="1" max="30" value="10">
+          </label>
+          <button id="generate-btn" class="btn-primary">Generate flashcards</button>
+        </div>
+        <p id="generate-status" class="status-line"></p>
+      </section>
+
+      <section class="panel study-panel">
+        <p class="panel-label">02 · Study</p>
+        <div id="empty-state" class="empty-state">
+          <p>No cards yet. Paste something on the left and generate a deck, or pick a saved deck above.</p>
+        </div>
+
+        <div id="card-stage" class="card-stage hidden">
+          <div class="stage-meta">
+            <span id="card-position" class="mono">1 / 1</span>
+            <div class="stage-actions">
+              <button id="shuffle-btn" class="btn-ghost">Shuffle</button>
+              <button id="save-deck-btn" class="btn-ghost">Save deck</button>
+            </div>
+          </div>
+
+          <div class="flashcard" id="flashcard">
+            <div class="flashcard-inner">
+              <div class="flashcard-face flashcard-front">
+                <div class="punch-row"><span class="punch"></span><span class="punch"></span><span class="punch"></span></div>
+                <div class="rule"></div>
+                <p class="face-label">Question</p>
+                <p class="face-text" id="question-text"></p>
+                <p class="flip-hint">Click to flip</p>
+              </div>
+              <div class="flashcard-face flashcard-back">
+                <div class="punch-row"><span class="punch"></span><span class="punch"></span><span class="punch"></span></div>
+                <div class="rule"></div>
+                <p class="face-label">Answer</p>
+                <p class="face-text" id="answer-text"></p>
+                <p class="flip-hint">Click to flip</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="stage-nav">
+            <button id="prev-btn" class="btn-ghost">← Prev</button>
+            <button id="next-btn" class="btn-ghost">Next →</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>

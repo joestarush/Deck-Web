@@ -1,0 +1,375 @@
+:root {
+  --bg-deck: #24312B;
+  --bg-deck-dark: #1B2621;
+  --card-cream: #F3E7CB;
+  --card-cream-dim: #EADFC0;
+  --rule-red: #B23A48;
+  --ink: #2A2420;
+  --ink-soft: #55493C;
+  --chalk-yellow: #E8B94E;
+  --line-sage: #B9CCBE;
+  --font-display: 'Special Elite', 'Courier New', monospace;
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.03), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,0.025), transparent 45%),
+    var(--bg-deck);
+  font-family: var(--font-body);
+  color: var(--ink);
+}
+
+.hidden { display: none !important; }
+
+.screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--rule-red);
+  margin: 0 0 4px;
+}
+
+/* ---------- shared "index card" look ---------- */
+.card {
+  background: var(--card-cream);
+  border-radius: 4px;
+  padding: 32px 28px 28px;
+  position: relative;
+  box-shadow:
+    0 1px 0 rgba(0,0,0,0.05),
+    6px 6px 0 rgba(0,0,0,0.12),
+    12px 12px 0 rgba(0,0,0,0.08);
+}
+
+.punch-row {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+.punch {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--bg-deck);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
+}
+
+.rule {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 46px;
+  width: 2px;
+  background: var(--rule-red);
+  opacity: 0.55;
+}
+
+/* ---------- lock screen ---------- */
+.lock-card {
+  width: 320px;
+  text-align: center;
+  padding-top: 26px;
+}
+.lock-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  margin: 0 0 20px;
+  color: var(--ink);
+}
+.pin-dots {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.pin-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--ink-soft);
+  background: transparent;
+  transition: background 0.15s, border-color 0.15s;
+}
+.pin-dot.filled {
+  background: var(--rule-red);
+  border-color: var(--rule-red);
+}
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.keypad button {
+  font-family: var(--font-mono);
+  font-size: 17px;
+  font-weight: 500;
+  padding: 14px 0;
+  border: none;
+  border-radius: 6px;
+  background: var(--card-cream-dim);
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: 0 2px 0 rgba(0,0,0,0.15);
+  transition: transform 0.08s, box-shadow 0.08s;
+}
+.keypad button:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+.keypad-alt {
+  font-family: var(--font-mono);
+  font-size: 12px !important;
+  color: var(--ink-soft);
+}
+.unlock-btn {
+  width: 100%;
+  margin-top: 14px;
+}
+.lock-error {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--rule-red);
+  min-height: 16px;
+  margin: 14px 0 0;
+}
+
+/* ---------- app shell ---------- */
+#app-screen.screen {
+  align-items: flex-start;
+  display: block;
+  padding: 32px 24px 64px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 28px;
+  color: var(--card-cream);
+}
+.app-title {
+  font-family: var(--font-display);
+  font-size: 30px;
+  margin: 0;
+  color: var(--card-cream);
+}
+.deck-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+#deck-select {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 9px 12px;
+  border-radius: 5px;
+  border: 1px solid rgba(243,231,201,0.3);
+  background: var(--bg-deck-dark);
+  color: var(--card-cream);
+}
+
+.app-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+@media (max-width: 860px) {
+  .app-main { grid-template-columns: 1fr; }
+}
+
+.panel {
+  background: var(--card-cream);
+  border-radius: 6px;
+  padding: 22px 22px 26px;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.15);
+}
+.panel-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rule-red);
+  margin: 0 0 14px;
+}
+
+#source-text {
+  width: 100%;
+  min-height: 220px;
+  resize: vertical;
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 14px;
+  border: 1px solid rgba(42,36,32,0.15);
+  border-radius: 5px;
+  background: repeating-linear-gradient(
+    var(--card-cream),
+    var(--card-cream) 27px,
+    var(--line-sage) 28px
+  );
+  color: var(--ink);
+}
+#source-text:focus { outline: 2px solid var(--rule-red); outline-offset: 1px; }
+
+.generator-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+}
+.count-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-soft);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.count-label input {
+  width: 56px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(42,36,32,0.2);
+}
+
+button { font-family: var(--font-body); }
+
+.btn-primary {
+  background: var(--rule-red);
+  color: var(--card-cream);
+  border: none;
+  padding: 11px 20px;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 2px 0 rgba(0,0,0,0.2);
+}
+.btn-primary:active { transform: translateY(1px); box-shadow: none; }
+.btn-primary:disabled { opacity: 0.6; cursor: default; }
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--ink-soft);
+  color: var(--ink-soft);
+  padding: 8px 14px;
+  border-radius: 5px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.btn-ghost:hover { border-color: var(--rule-red); color: var(--rule-red); }
+
+#app-screen .btn-ghost { border-color: rgba(243,231,201,0.35); color: var(--card-cream); }
+#app-screen .btn-ghost:hover { border-color: var(--chalk-yellow); color: var(--chalk-yellow); }
+
+.status-line {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-soft);
+  min-height: 16px;
+  margin: 12px 0 0;
+}
+
+.empty-state {
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  padding: 30px 10px;
+  text-align: center;
+}
+
+/* ---------- study stage ---------- */
+.stage-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.mono { font-family: var(--font-mono); font-size: 12px; color: var(--ink-soft); }
+.stage-actions { display: flex; gap: 8px; }
+.study-panel .btn-ghost { border-color: rgba(42,36,32,0.25); color: var(--ink-soft); }
+.study-panel .btn-ghost:hover { border-color: var(--rule-red); color: var(--rule-red); }
+
+.flashcard {
+  perspective: 1400px;
+  cursor: pointer;
+  height: 260px;
+  margin-bottom: 16px;
+}
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(.4,.2,.2,1);
+  transform-style: preserve-3d;
+}
+.flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+
+.flashcard-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  background: var(--card-cream-dim);
+  border: 1px solid rgba(42,36,32,0.12);
+  border-radius: 6px;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+}
+.flashcard-back { transform: rotateY(180deg); }
+
+.face-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--rule-red);
+  margin: 4px 0 10px;
+}
+.face-text {
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink);
+  flex: 1;
+  overflow-y: auto;
+  margin: 0;
+}
+.flip-hint {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--ink-soft);
+  text-align: right;
+  margin: 8px 0 0;
+}
+
+.stage-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.stage-nav button { flex: 1; }
